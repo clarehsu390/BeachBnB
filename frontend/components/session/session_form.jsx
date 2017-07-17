@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class SessionForm extends React.Component {
   constructor(props) {
@@ -7,21 +8,53 @@ class SessionForm extends React.Component {
       username: "",
       password: ""
     };
+
     this.update = this.update.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   handleSubmit(e) {
     e.preventDefault();
-    this.props.processForm(this.state);
+    const user = this.state;
+    this.props.processForm({user});
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.loggedIn) {
+      this.props.history.push('/');
+    }
   }
 
   update(property) {
     return e => this.setState({ [property]: e.target.value });
   }
+  renderErrors() {
+      if (this.props.errors) {
+        return(
+          <ul>
+            {this.props.errors.map((error, i) => (
+              <li key={`error-${i}`}>
+                {error}
+              </li>
+            ))}
+          </ul>
+        );
+      }
+
+  }
+
+  navLink() {
+    if (this.props.formType === 'login') {
+      return <Link to='/signup'>Please Sign Up</Link>;
+    }
+    else {
+      return <Link to='/login'>Please Login</Link>;
+    }
+  }
 
   render() {
     return (
-      <form className='login' onSubmit={this.handleSubmit}>
+      <form className='session-form' onSubmit={this.handleSubmit}>
+        {this.navLink}
         <input
           type='text'
           value={this.state.username}
@@ -34,7 +67,8 @@ class SessionForm extends React.Component {
           placeholder='password'
           onChange={this.update('password')}
           />
-        <button>Login</button>
+        {this.renderErrors()}
+        <button>Submit</button>
       </form>
     );
   }
