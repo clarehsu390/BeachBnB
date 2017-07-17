@@ -2,7 +2,7 @@ import React from 'react';
 import GreetingContainer from './greeting/greeting_container';
 const App = () => (
   <div>
-    <h1>Beach BnB</h1>
+    <h1>Bench BnB</h1>
     <GreetingContainer />
   </div>
 );
