@@ -1,7 +1,7 @@
 import { RECEIVE_CURRENT_USER, RECEIVE_ERRORS } from '../actions/session_actions';
 import merge from 'lodash/merge';
 const _nullUser = {
-  currentUser: null,
+  currentUser: "",
   errors: []
 };
 export const SessionReducer = (state = _nullUser, action) => {

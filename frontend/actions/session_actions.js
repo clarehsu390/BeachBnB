@@ -13,11 +13,10 @@ export const signup = user => dispatch => {
 
 export const login = user => dispatch => {
 
-  return APIUtil.login(user).then(() => console.log(user));
-  // .then(
-  //   currentUser => (dispatch(receiveCurrentUser(currentUser))),
-  //   error => (dispatch(receiveErrors(error.responseJSON)))
-  // );
+  return APIUtil.login(user).then(
+    currentUser => (dispatch(receiveCurrentUser(currentUser))),
+    error => (dispatch(receiveErrors(error.responseJSON)))
+  );
 };
 
 export const logout = () => dispatch => {
